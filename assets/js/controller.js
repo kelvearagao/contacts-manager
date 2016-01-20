@@ -23,7 +23,8 @@ app.config(function($routeProvider, $locationProvider) {
 
 	// Remove o símbolo '#' da URL
 	//$locationProvider.html5Mode({enabled: true,	requireBase: false});
-	$locationProvider.html5Mode(true);
+	//$locationProvider.hashPrefix('!');
+	//$locationProvider.html5Mode(true);
 });
 
 // Define os controladores
