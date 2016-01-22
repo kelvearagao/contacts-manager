@@ -13,23 +13,11 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>Kelve</td>
-				<td>kelve@gmail.com</td>
-				<td>234234234</td>
-				<td><a href="#" class="btn btn-default btn-xs">View</a></td>
-			</tr>
-			<tr>
-				<td>Ivan</td>
-				<td>ivan@gmail.com</td>
-				<td>234234234</td>
-				<td><a href="#" class="btn btn-default btn-xs">View</a></td>
-			</tr>
-			<tr>
-				<td>Cleide</td>
-				<td>cleide@gmail.com</td>
-				<td>234234234</td>
-				<td><a href="#" class="btn btn-default btn-xs">View</a></td>
+			<tr ng-repeat="contact in contacts">
+				<td>{{contact.name}}</td>
+				<td>{{contact.email}}</td>
+				<td>{{contact.phone}}</td>
+				<td><a href="#/contact/{{$index}}" class="btn btn-default btn-xs">View</a></td>
 			</tr>
 		</tbody>
 	</table>
