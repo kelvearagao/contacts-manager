@@ -21,6 +21,11 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl: 'assets/partials/contact.html'
 	})
 
+	.when('/test', {
+		controller: 'testCtl',
+		templateUrl: 'assets/partials/test.html'
+	})
+
 	.otherwise({
 		redirectTo: '/'
 	});
@@ -63,6 +68,27 @@ app.factory('contacts', function() {
 			return contacts[index];
 		}
 	};
+}).factory('package', function() {
+	var package = {
+			name: 'Pacote test',
+			description: 'Este pacote existe apenas para a realzição de testes!',
+			days : [
+			{	'num' : 1,
+				 'services': [],
+				 'hotels':[]
+			},
+			{'num' : 2 },
+			{'num' : 3 },
+			{'num' : 4 },
+			{'num' : 5 }
+		];
+	};
+
+	return {
+		get: function() {
+			return package;
+		}
+	};
 });
 
 /**
@@ -77,6 +103,9 @@ app.controller('indexCtl', function($scope, contacts){
 	})
 	.controller('contactCtl', function($scope, $routeParams, contacts){
 		$scope.contact = contacts.find($routeParams.id);
+	})
+	.controller('testCtl', function($scope, $routeParams, package){
+		$scope.package = package.get();
 	});
 
 /**
@@ -94,5 +123,29 @@ app.directive('gravatar', function() {
 			scope.img = 'http://gravatar.com/avatar/'+md5(attrs.email)+'?s='+size;
 			scope.class = attrs.class;
 		}
+	};
+}).directive('myPackage', function() {
+	return {
+		template: '<div>'+
+						'<h1>{{ package.name }}</h1>'+
+						'<p>{{ package.description }}</p>'+
+						'<div my-days></div>'+
+				  '</div>'
+	};
+}).directive('myDays', function() {
+	return {
+		template: '<div ng-repeat="day in package.days">'+
+						'<h2>Dia {{ day.num }}</h2>'+
+				   		'<table width="100%">'+
+				   			'<tr>'+
+				   				'<th>Serviços</th>'+
+				   				'<th>Descrição do serviço</th>'+
+				   			'</tr>'+
+				   			'<tr>'+
+				   				'<td>asdasd</td>'+
+				   				'<td>aasdasdas</td>'+
+				   			'</tr>'+
+				   		'</table>'+
+				   '</div>'
 	};
 });
