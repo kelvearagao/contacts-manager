@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en" ng-app="app" ng-controller="appCtl">
 <head>
 	<meta charset="utf-8">
 	<!--base href="/contacts-manager/"-->
@@ -12,6 +12,7 @@
 	<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="assets/js/angular.min.js"></script>
 	<script type="text/javascript" src="assets/js/angular-route.min.js"></script>
+	<script type="text/javascript" src="assets/js/angular-sanitize.min.js"></script>
 	<script type="text/javascript" src="assets/js/controller.js"></script>
 </head>
 <body>
@@ -30,12 +31,12 @@
 		<div class="collapse navbar-collapse" id="nav-toggle">
 			
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#/">Browse</a></li>
-				<li><a href="#/add-contact">Add Contact</a></li>
+				<li ng-class="pageClass('/')"><a href="#/">Browse</a></li>
+				<li ng-class="pageClass('/add-contact')"><a href="#/add-contact">Add Contact</a></li>
 			</ul>
 
 			<form class="navbar-form navbar-right" role="search">
-				<input type="text" class="form-control" placeholder="Search">
+				<input type="text" class="form-control" placeholder="Search" ng-model="search" ng-keyup="startSearch()">
 			</form>
 		</div>
 	</nav>
