@@ -21,6 +21,11 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl: 'assets/partials/contact.html'
 	})
 
+	.when('/test', {
+		controller: 'testCtl',
+		templateUrl: 'assets/partials/test.html'
+	})
+
 	.otherwise({
 		redirectTo: '/'
 	});
@@ -79,6 +84,27 @@ app.factory('contacts', function() {
 			contacts.splice(index, 1);
 		}
 	};
+}).factory('package', function() {
+	var package = {
+			name: 'Pacote test',
+			description: 'Este pacote existe apenas para a realzição de testes!',
+			days : [
+			{	'num' : 1,
+				 'services': [],
+				 'hotels':[]
+			},
+			{'num' : 2 },
+			{'num' : 3 },
+			{'num' : 4 },
+			{'num' : 5 }
+		];
+	};
+
+	return {
+		get: function() {
+			return package;
+		}
+	};
 });
 
 /**
@@ -110,6 +136,9 @@ app.controller('indexCtl', function($scope, contacts){
 		$scope.pageClass = function(path) {
 			return (path == $location.path()) ? 'active' : '';
 		};
+	})
+	.controller('testCtl', function($scope, $routeParams, package){
+		$scope.package = package.get();
 	});
 
 /**
