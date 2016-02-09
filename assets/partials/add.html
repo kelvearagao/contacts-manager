@@ -3,9 +3,11 @@
 </div>
 
 <form class="form-horizontal" ng-submit="submit()">
-	<div class="alert alert-success" ng-show="added">
+	<!--div class="alert alert-success" ng-show="added">
 		The contact was added successfully.
-	</div>
+	</div-->
+
+	<div id="alertContainer"></div>
 
 	<div class="row">
 		
@@ -53,8 +55,9 @@
 			<div class="form-group">
 				<label for="notes" class="col-sm-4 control-label">Notes</label>
 				<div class="col-sm-8">
-					<textarea id="notes" class="form-control" ng-model="contact.notes"></textarea>
-					<span class="help-block">Any additional information about the contact.</span>
+					<textarea id="notes" class="form-control" ng-model="contact.notes"
+						bs-tooltip data-title="Any additional information about the contact."
+						data-trigger="focus" data-placement="bottom"></textarea>
 				</div>
 			</div>
 		</div>

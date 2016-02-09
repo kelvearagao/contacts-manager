@@ -1,4 +1,5 @@
-var app = angular.module('app', ['ngRoute', 'ngSanitize']);
+var app = angular.module('app', ['ngRoute', 'ngSanitize', 
+	'mgcrea.ngStrap', 'ngResource']);
 
 /**
  * Rotas
@@ -24,6 +25,11 @@ app.config(function($routeProvider, $locationProvider) {
 	.when('/test', {
 		controller: 'testCtl',
 		templateUrl: 'assets/partials/test.html'
+	})
+
+	.when('/demo', {
+		controller: 'demoCtrl',
+		templateUrl: 'assets/partials/demo.html'
 	})
 
 	.otherwise({
@@ -84,45 +90,43 @@ app.factory('contacts', function() {
 			contacts.splice(index, 1);
 		}
 	};
-}).factory('package', function() {
-	var package = {
-			name: 'Pacote test',
-			description: 'Este pacote existe apenas para a realzição de testes!',
-			days : [
-			{	'num' : 1,
-				 'services': [],
-				 'hotels':[]
-			},
-			{'num' : 2 },
-			{'num' : 3 },
-			{'num' : 4 },
-			{'num' : 5 }
-		];
-	};
-
-	return {
-		get: function() {
-			return package;
-		}
-	};
 });
 
 /**
  * Controladores
  *
  */
-app.controller('indexCtl', function($scope, contacts){
+app.controller('indexCtl', function($scope, contacts, $alert){
+		var deletionAlert = $alert({
+			title: 'Success!',
+			content: 'The contact was deleted successfuly.',
+			type: 'success',
+			container: '#alertContainer',
+			show: false
+		})
+
 		$scope.contacts = contacts.get();
 
 		$scope.delete = function(index) {
 			contacts.destroy(index);
-		}
+			deletionAlert.show();
+		};
 	})
-	.controller('addCtl', function($scope, contacts){
+	.controller('addCtl', function($scope, contacts, $alert){
+		var alert = $alert({
+			title: 'Success!',
+			content: 'The contact was added successfuly.',
+			type: 'success',
+			container: '#alertContainer',
+			show: false
+		});
+
 		$scope.submit = function() {
 			contacts.create($scope.contact);
 			$scope.contact = null;
 			$scope.added = true;
+
+			alert.show();
 		};
 	})
 	.controller('contactCtl', function($scope, $routeParams, contacts){
@@ -139,7 +143,17 @@ app.controller('indexCtl', function($scope, contacts){
 	})
 	.controller('testCtl', function($scope, $routeParams, package){
 		$scope.package = package.get();
-	});
+	})
+	.controller('demoCtrl', function($scope, contacts){
+		$scope.modal = {
+			title: 'Modal Title',
+			content: 'Modal content'
+		};
+
+		$scope.tootip = {
+			title: 'Tootíp Title'
+		};
+	});	
 
 /**
  * Directives
