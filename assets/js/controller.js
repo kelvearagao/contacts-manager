@@ -1,11 +1,11 @@
-var app = angular.module('app', ['ngRoute', 'ngSanitize', 
-	'mgcrea.ngStrap', 'ngResource']);
+var app = angular.module('app', ['ngRoute', 'ngSanitize', 'mgcrea.ngStrap']);
 
 /**
  * Rotas
  *
  */
-app.config(function($routeProvider, $locationProvider) {
+app.config(['$routeProvider', '$locationProvider',
+	function($routeProvider, $locationProvider) {
 	// Define as Rotas
 	$routeProvider.when('/', {
 		controller: 'indexCtl',
@@ -40,7 +40,7 @@ app.config(function($routeProvider, $locationProvider) {
 	//$locationProvider.html5Mode({enabled: true,	requireBase: false});
 	//$locationProvider.hashPrefix('!');
 	//$locationProvider.html5Mode(true);
-});
+}]);
 
 /**
  * Filtro
@@ -96,7 +96,7 @@ app.factory('contacts', function() {
  * Controladores
  *
  */
-app.controller('indexCtl', function($scope, contacts, $alert){
+app.controller('indexCtl', ['$scope', 'contacts', '$alert', function($scope, contacts, $alert){
 		var deletionAlert = $alert({
 			title: 'Success!',
 			content: 'The contact was deleted successfuly.',
@@ -111,8 +111,8 @@ app.controller('indexCtl', function($scope, contacts, $alert){
 			contacts.destroy(index);
 			deletionAlert.show();
 		};
-	})
-	.controller('addCtl', function($scope, contacts, $alert){
+	}])
+	.controller('addCtl', ['$scope', 'contacts', '$alert', function($scope, contacts, $alert){
 		var alert = $alert({
 			title: 'Success!',
 			content: 'The contact was added successfuly.',
@@ -128,11 +128,11 @@ app.controller('indexCtl', function($scope, contacts, $alert){
 
 			alert.show();
 		};
-	})
-	.controller('contactCtl', function($scope, $routeParams, contacts){
+	}])
+	.controller('contactCtl', ['$scope', '$routeParams', 'contacts', function($scope, $routeParams, contacts){
 		$scope.contact = contacts.find($routeParams.id);
-	})
-	.controller('appCtl', function($scope, $location) {
+	}])
+	.controller('appCtl', ['$scope', '$location', function($scope, $location) {
 		$scope.startSearch = function() {
 			$location.path('/');
 		};
@@ -140,11 +140,11 @@ app.controller('indexCtl', function($scope, contacts, $alert){
 		$scope.pageClass = function(path) {
 			return (path == $location.path()) ? 'active' : '';
 		};
-	})
-	.controller('testCtl', function($scope, $routeParams, package){
+	}])
+	.controller('testCtl', ['$scope', '$routeParams', 'package', function($scope, $routeParams, package){
 		$scope.package = package.get();
-	})
-	.controller('demoCtrl', function($scope, contacts){
+	}])
+	.controller('demoCtrl', ['$scope', 'contacts', function($scope, contacts){
 		$scope.modal = {
 			title: 'Modal Title',
 			content: 'Modal content'
@@ -153,7 +153,7 @@ app.controller('indexCtl', function($scope, contacts, $alert){
 		$scope.tootip = {
 			title: 'Tootíp Title'
 		};
-	});	
+	}]);	
 
 /**
  * Directives
@@ -180,7 +180,7 @@ app.directive('gravatar', function() {
 				value: '=editable',
 				field: '@fieldType'
 			},
-			controller: function($scope) {
+			controller: ['$scope', function($scope) {
 				$scope.editor = {
 					showing: false,
 					value: $scope.value
@@ -200,6 +200,6 @@ app.directive('gravatar', function() {
 					$scope.value = $scope.editor.value;
 					$scope.toggleEditor();
 				}
-			}
+			}]
 		};
 	});
