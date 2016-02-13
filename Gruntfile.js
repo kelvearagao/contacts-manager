@@ -8,22 +8,24 @@ module.exports = function(grunt) {
 			},
 			build: {
 				src: [
-					'assets/js/jquery.min.js',
-					'assets/js/bootstrap.min.js',
-					'assets/js/angular.min.js',
-					'assets/js/angular-animate.min.js',
-					'assets/js/angular-strap.min.js',
-					'assets/js/angular-strap.tpl.min.js',
-					'assets/js/angular-route.min.js',
-					'assets/js/angular-sanitize.min.js',
-					'assets/js/controller.js'
+					'app/vendor/jquery.min.js',
+					'app/vendor/bootstrap.min.js',
+					'app/vendor/angular.min.js',
+					'app/vendor/angular-animate.min.js',
+					'app/vendor/angular-strap.min.js',
+					'app/vendor/angular-strap.tpl.min.js',
+					'app/vendor/angular-route.min.js',
+					'app/vendor/angular-sanitize.min.js',
+					'app/module.js',
+					'app/components/**/*.js',
+					'app/views/**/*.js'
 				],
-				dest: 'assets/js/build/<%= pkg.name %>.js'
+				dest: 'assets/js/<%= pkg.name %>.js'
 			}
 		},
 		watch: {
 			files: [
-				'assets/js/*.js'
+				'app/vendor/*.js'
 			],
 			tasks: ['uglify']
 		}
