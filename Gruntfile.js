@@ -11,6 +11,7 @@ module.exports = function(grunt) {
 					'app/vendor/jquery.min.js',
 					'app/vendor/bootstrap.min.js',
 					'app/vendor/angular.min.js',
+					'app/vendor/angular-resource.min.js',
 					'app/vendor/angular-animate.min.js',
 					'app/vendor/angular-strap.min.js',
 					'app/vendor/angular-strap.tpl.min.js',
@@ -25,7 +26,9 @@ module.exports = function(grunt) {
 		},
 		watch: {
 			files: [
-				'app/vendor/*.js'
+				'app/vendor/*.js',
+				'app/views/*.js',
+				'app/components/*.js'
 			],
 			tasks: ['uglify']
 		}
